@@ -11,9 +11,9 @@ internal class Program
             Console.WriteLine("Gerenciador de Tarefas");
             Console.WriteLine("1. Adicionar nova Tarefa.");
             Console.WriteLine("2. Listar tarefas");
-            Console.WriteLine("3. Editar Tarefa existente.");
-            Console.WriteLine("4. Excluir nova Tarefa.");
-            Console.WriteLine("5. Marcar como concluída.");
+            Console.WriteLine("3. Marcar tarefa como concluida.");
+            Console.WriteLine("4. Editar tarefa.");
+            Console.WriteLine("5. Excluir tarefa.");
             Console.WriteLine("6. Sair.");
             string opcao = Console.ReadLine();
 
@@ -29,8 +29,10 @@ internal class Program
                         ListarTarefas();
                         break;
                     case 3:
+                        MarcarTarefaComoConcluida();
                         break;
                     case 4:
+                        EditarTarefa();
                         break;
                     case 5:
                         return;
@@ -102,10 +104,43 @@ internal class Program
         {
             Console.WriteLine("Número inválido");
         }
+    }
+
+    static void EditarTarefa()
+    {
+        Console.WriteLine("Selecione qual tarefa você deseja editar: ");
+        ListarTarefas();
+        if(int.TryParse(Console.ReadLine(),out int numero) && numero>0 && numero <= tarefas.Count)
+        {
+            Tarefa tarefa = tarefas[numero - 1];
 
 
+            Console.WriteLine("Escolha um novo título: ");
+            string novoTitulo = Console.ReadLine();
 
+            if (!string.IsNullOrWhiteSpace(novoTitulo)){ //se a string novoTitulo não for nula nem espaço em branco, ai continua
+                tarefa.Titulo = novoTitulo; //o tarefa esta referenciando o Tarefa class
+            }
 
+            Console.WriteLine("Escolha uma nova descrição?: ");
+            string novaDescricao = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(novaDescricao))
+            {
+                tarefa.Descricao = novaDescricao;
+            }
+
+            Console.WriteLine("Digite uma nova data de vencimento: (dd/mm/yyyy)");
+            string novaData = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(novaData) && DateTime.TryParse(novaData, out DateTime novaDataVencimento))
+            {
+                tarefa.DataVencimento = novaDataVencimento;
+            }
+            Console.WriteLine("Tarefa atualizada com sucesso! ");
+        }
+        else
+        {
+            Console.WriteLine("Número inválido");
+        }
     }
 }
 
