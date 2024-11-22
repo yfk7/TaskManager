@@ -49,7 +49,6 @@ internal class Program
             }
         }
     }
-                                        //static para poder acessar do metodo main
     static void AdicionarTarefa()
     {
         //aqui estou armazenando os dados sobre uma tarefa.
@@ -141,6 +140,32 @@ internal class Program
         {
             Console.WriteLine("Número inválido");
         }
+    }
+
+
+    static void ExcluirTarefa()
+    {
+        Console.WriteLine("Você deseja excluir uma tarefa? (S/N) ");
+        string opcao = Console.ReadLine();
+        opcao = opcao.ToUpper();
+        if(opcao == "S")
+        {
+            Console.WriteLine("Digite o número da tarefa que deseja excluir: ");
+            if (int.TryParse(Console.ReadLine(), out int numeroTarefa) && numeroTarefa>0 && numeroTarefa <= tarefas.Count)
+            {
+                tarefas.RemoveAt(numeroTarefa - 1); //RemoveAt remove o item localizado no índice especificado da lista. O índice sera o numero escolhido menos 1 já que o índice começa no 0
+                Console.WriteLine("Tarefa removida");
+            }
+            else
+            {
+                Console.WriteLine("Número inválido");
+            }
+        }
+        else
+        {
+            return;
+        }
+
     }
 }
 
