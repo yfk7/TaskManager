@@ -35,8 +35,11 @@ internal class Program
                         EditarTarefa();
                         break;
                     case 5:
+                        ExcluirTarefa();
                         return;
                     case 6:
+                        Console.WriteLine("Encerrando o programa!");
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Opção inválida");
@@ -145,27 +148,33 @@ internal class Program
 
     static void ExcluirTarefa()
     {
-        Console.WriteLine("Você deseja excluir uma tarefa? (S/N) ");
-        string opcao = Console.ReadLine();
-        opcao = opcao.ToUpper();
+        Console.WriteLine("Você deseja excluir a tarefa? digite S para sim ou N para não");
+        string opcao = Console.ReadLine().ToUpper();
         if(opcao == "S")
         {
-            Console.WriteLine("Digite o número da tarefa que deseja excluir: ");
-            if (int.TryParse(Console.ReadLine(), out int numeroTarefa) && numeroTarefa>0 && numeroTarefa <= tarefas.Count)
+            while (true)
             {
-                tarefas.RemoveAt(numeroTarefa - 1); //RemoveAt remove o item localizado no índice especificado da lista. O índice sera o numero escolhido menos 1 já que o índice começa no 0
-                Console.WriteLine("Tarefa removida");
+                Console.WriteLine("Digite o número da tarefa: ");
+                if(int.TryParse(Console.ReadLine(),out int numeroTarefa) && numeroTarefa > 0 && numeroTarefa <= tarefas.Count)
+                {
+                    tarefas.RemoveAt(numeroTarefa - 1);
+                    Console.WriteLine("Tarefa removida. ");
+                }
+                else
+                {
+                    Console.WriteLine("Número inválido. ");
+                }
             }
-            else
-            {
-                Console.WriteLine("Número inválido");
-            }
+        }
+        else if(opcao == "N")
+        {
+            Console.WriteLine("Voltando ao menu. ");
         }
         else
         {
-            return;
+            Console.WriteLine("Opção inválida.");
         }
-
+        
     }
 }
 
@@ -189,4 +198,5 @@ class Tarefa
         this.Concluido = Concluido;
     }
     
+
 }
